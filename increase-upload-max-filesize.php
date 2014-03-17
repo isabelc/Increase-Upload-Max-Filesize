@@ -9,7 +9,7 @@ Author URI: http://smartestthemes.com
 License: GPL2
 Text Domain: inc-upload-max-filesize
 
-Copyright 2013 Smartest Themes(email : isa@smartestthemes.com)
+Copyright 2013 - 2014 Smartest Themes(email : isa@smartestthemes.com)
 
 Increase Upload Max Filesize is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as 
