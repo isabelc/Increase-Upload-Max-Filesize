@@ -1,6 +1,4 @@
 ﻿=== Increase Upload Max Filesize ===
-Author URI: http://smartestthemes.com
-Plugin URI: http://smartestthemes.com/downloads/increase-upload-max-filesize-wp-plugin/
 Contributors: SmartestThemes, isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=isa%40smartestthemes%2ecom
 Tags: php.ini, php5.ini, ini rules, upload max filesize, upload limit, increase filesize, upload_max_filesize, post max size, post_max_size
