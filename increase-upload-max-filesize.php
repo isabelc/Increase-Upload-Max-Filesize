@@ -71,7 +71,7 @@ class Increase_Upload_Max_Filesize {
 		<?php $before_plugin = get_option( 'increase_upload_filesize_msg' );
 			$before_plugin_error = get_option( 'increase_upload_filesize_msg_err' ); ?>
 
-		<h3>Your Settings Before Running The Plugin:</h3>
+		<h3><php _e( 'Your Settings Before Running The Plugin:', 'inc-upload-max-filesize'); ?></h3>
 		<div class="updated"><p><?php echo $before_plugin; ?></p><p><?php echo $before_plugin_error; ?></p></div>
 
 		<?php $a = ini_get('upload_max_filesize');
