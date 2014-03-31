@@ -66,7 +66,7 @@ class Increase_Upload_Max_Filesize {
 	public function create_admin_page(){ ?>
 		<div class="wrap">
 		<?php screen_icon(); ?>
-		<h2><?php _e( 'Increase Upload Max Filesize', 'inc-upload-max-filesize'); ?></h2>
+		<h2><?php _e( 'Increase Upload Max Filesize', 'inc-upload-max-filesize' ); ?></h2>
 
 		<?php $before_plugin = get_option( 'increase_upload_filesize_msg' );
 			$before_plugin_error = get_option( 'increase_upload_filesize_msg_err' ); ?>
@@ -88,7 +88,7 @@ class Increase_Upload_Max_Filesize {
 
 		$after_status = sprintf(__( 'By default, this plugin uses %1$sphp5.ini%2$s. If your server uses %1$sphp.ini%2$s instead, please check the box below and click the blue button once.', 'inc-upload-max-filesize' ), '<code>', '</code>' );
 		} ?>
-		<h3>Current Status:</h3>
+		<h3><?php _e( 'Current Status:', 'inc-upload-max-filesize' ); ?></h3>
 		<div class="updated"><p><?php echo $status; ?></p></div><p><?php echo $after_status; ?></p>
 		<form method="post" action="options.php">
 	        <?php settings_fields( 'inc_upload_max_filesize_options' );	// @param 1 must be same as register settings'
