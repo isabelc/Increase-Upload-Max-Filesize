@@ -12,7 +12,7 @@ Increases your website's upload max filesize limit on your server by adding rule
 
 == Description ==
 
-Increase your website's upload max filesize limit on your server by adding rules to `php5.ini`. If a `php5.ini` file does not exist on your server in the root of your website, one will be created. If your server uses `php.ini` instead, go to **Tools -> Upload Max Filesize** to run it with `php.ini`.
+Increase your website's upload max filesize limit on your server by adding rules to `php5.ini`. If a `php5.ini` file does not exist on your server in the root of your website, one will be created. If your server uses `php.ini` instead, go to **Tools -> Upload Max Filesize** to run it with `php.ini`. You can also use this plugin to see your current php.ini settings status (go to **Tools -> Upload Max Filesize**).
 
 **Super Easy To Use**
 
@@ -27,6 +27,7 @@ That is all. No other will rules will be changed.
 **If you want to set custom limits:**
 
 For custom options, go to **Tools -> Upload Max Filesize**. From that page, you can choose custom settings and run the plugin again.
+
 
 **Note:**
 
