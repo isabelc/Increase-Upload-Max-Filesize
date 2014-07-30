@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Increase Upload Max Filesize
-Plugin URI: http://smartestthemes.com/downloads/increase-upload-max-filesize-wp-plugin/
+Plugin URI: http://wordpress.org/plugins/increase-upload-max-filesize/
 Description: Increases your website's upload max filesize limit on your server by adding rules to php5.ini or php.ini.
-Version: 1.1-rc-3
+Version: 1.1
 Author: Smartest Themes
 Author URI: http://smartestthemes.com
 License: GPL2
@@ -165,19 +165,19 @@ class Increase_Upload_Max_Filesize {
 
 	public function iumf_settings_callback($args){
 
-	// name must start with the second argument passed to register_setting
-    $options = get_option( 'inc_upload_max_filesize_options' );
-	if(isset($options['checkbox_one'])) {
-		$checked = ' checked="checked" ';
-	}
-    $html = '<input type="checkbox" id="checkbox_one" name="inc_upload_max_filesize_options[checkbox_one]"'; 
-	if(isset($checked)) $html .= $checked;
-    $html .= '/><label for="checkbox_one">' . sprintf( __(' Check this to use %1$sphp.ini%2$s instead of %1$sphp5.ini%2$s. Then click the button once. Check your status after a few minutes to see if changes took place.%3$s', 'increase-upload-max-filesize' ),
-		'<code>',
-		'</code>',
-		'</label>' );
+		// name must start with the second argument passed to register_setting
+		$options = get_option( 'inc_upload_max_filesize_options' );
+		if(isset($options['checkbox_one'])) {
+			$checked = ' checked="checked" ';
+		}
+		$html = '<input type="checkbox" id="checkbox_one" name="inc_upload_max_filesize_options[checkbox_one]"'; 
+		if(isset($checked)) $html .= $checked;
+		$html .= '/><label for="checkbox_one">' . sprintf( __(' Check this to use %1$sphp.ini%2$s instead of %1$sphp5.ini%2$s. Then click the button once. Check your status after a few minutes to see if changes took place.%3$s', 'increase-upload-max-filesize' ),
+			'<code>',
+			'</code>',
+			'</label>' );
 
-    echo $html;
+		echo $html;
     }
 
 	/**
@@ -295,8 +295,8 @@ class Increase_Upload_Max_Filesize {
 			else $filename = $root . '/php5.ini';
 
 			if ( file_exists( $filename ) ) {
-	
-				// create or append php5.ini file
+			
+				// append the .ini file
 				// using the FILE_APPEND flag to append the content to the end of the file
 				// and the LOCK_EX flag to prevent anyone else writing to the file at the same time
 				$editini = file_put_contents( $filename, $rules, FILE_APPEND | LOCK_EX );
