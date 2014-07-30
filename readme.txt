@@ -63,6 +63,7 @@ If after 30 minutes your custom settings do not take effect, it may be that you 
 == Changelog ==
 
 = 1.1 =
+* New - Changed the textdomain to match the plugin slug for compatibility with WordPress core language packs.
 * Fix - Fixed a bug which caused it to look for non-existent translation files.
 
 = 1.0.2 =
