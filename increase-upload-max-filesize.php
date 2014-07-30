@@ -3,7 +3,7 @@
 Plugin Name: Increase Upload Max Filesize
 Plugin URI: http://smartestthemes.com/downloads/increase-upload-max-filesize-wp-plugin/
 Description: Increases your website's upload max filesize limit on your server by adding rules to php5.ini or php.ini.
-Version: 1.1-rc-2
+Version: 1.1-rc-3
 Author: Smartest Themes
 Author URI: http://smartestthemes.com
 License: GPL2
@@ -27,7 +27,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 if(!class_exists('Increase_Upload_Max_Filesize')) {
 class Increase_Upload_Max_Filesize {
 
-	public function __construct() {
+	private static $instance = null;
+
+	public static function get_instance() {
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+		}
+		return self::$instance;
+	}
+
+	private function __construct() {
 		add_action( 'init', array( $this, 'plugin_textdomain' ) );
 		add_action('admin_menu', array($this, 'add_plugin_page'));
 		add_action('admin_init', array($this, 'page_init'));
@@ -344,6 +353,6 @@ class Increase_Upload_Max_Filesize {
 
 } // end class
 }
-$Increase_Upload_Max_Filesize = new Increase_Upload_Max_Filesize();
+$Increase_Upload_Max_Filesize = Increase_Upload_Max_Filesize::get_instance();
 register_activation_hook(__FILE__, array( 'Increase_Upload_Max_Filesize', 'activate' ) );
 register_deactivation_hook(__FILE__, array( 'Increase_Upload_Max_Filesize', 'deactivate' ) );
