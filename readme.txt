@@ -38,7 +38,7 @@ Thus, if you later make any manual changes to decrease your `upload_max_filesize
 
 This plugin works. This means that it writes the rules to your php5.ini and/or to your php.ini. If the `.ini` file does not exist, it will create the file and then write the rules on it. This is all the plugin does. However, some web hosts IGNORE the settins on your php5.ini or php.ini. That is out of our control. 
 
-PLEASE NOTE: If you have a web host that ignores PHP ini rules set in these `.ini` files, that is no reason to give this plugin a bad rating.
+PLEASE NOTE: If you have a web host that ignores PHP ini rules set in these `.ini` files, that is no reason to give this plugin a bad rating. **You have the option of posting your problem (and the name of your web host) in the forum, and 9 times out of 10, I will help you solve your web-host-related problem.**
 
 This plugin will work with most web hosts that recognize either a `php5.ini` or `php.ini` file. It's not going to work with all hosting companies, but it will work with most of them (including BlueHost, DreamHost, and GoDaddy).
 
@@ -68,7 +68,7 @@ Contribute or fork it [on Github](https://github.com/isabelc/increase-upload-max
 
 This plugin works. This means that it writes the rules to your php5.ini and/or to your php.ini. If the `.ini` file does not exist, it will create the file and then write the rules on it. This is all the plugin does. However, some web hosts IGNORE the settins on your php5.ini or php.ini. That is out of our control. 
 
-PLEASE NOTE: If you have a web host that ignores PHP ini rules set in these `.ini` files, that is no reason to give this plugin a bad rating.
+PLEASE NOTE: If you have a web host that ignores PHP ini rules set in these `.ini` files, that is no reason to give this plugin a bad rating. **You have the option of posting your problem (and the name of your web host) in the forum, and 9 times out of 10, I will help you solve your web-host-related problem.**
 
 This plugin will work with most web hosts that recognize either a `php5.ini` or `php.ini` file. It's not going to work with all hosting companies, but it will work with most of them (including BlueHost, DreamHost, and GoDaddy).
 
