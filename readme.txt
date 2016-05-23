@@ -3,7 +3,7 @@ Contributors: isabel104
 Tags: php.ini, php5.ini, ini rules, upload max filesize, upload limit, increase filesize, upload_max_filesize, post max size, post_max_size
 Requires at least: 3.6
 Tested up to: 4.6
-Stable Tag: 1.1
+Stable tag: 1.2
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,7 +11,7 @@ This plugin is no longer supported.
 
 == Description ==
 
-Increase your website's upload max filesize limit on your server by adding rules to `php.ini`. If a `php.ini` file does not exist on your server in the root of your website, one will be created. If your server uses `php5.ini` instead, go to **Tools -> Upload Max Filesize** to run it with `php5.ini`. You can also use this plugin to see your current php.ini settings status (go to **Tools -> Upload Max Filesize**).
+Increase your website's upload max filesize limit on your server by adding rules to `php.ini`. If a `php.ini` file does not exist on your server in the root of your website, one will be created. If your server uses `php5.ini` instead, go to **Tools --> Upload Max Filesize** to run it with `php5.ini`. You can also use this plugin to see your current php.ini settings status (go to **Tools -> Upload Max Filesize**).
 
 **Super Easy To Use**
 
@@ -25,7 +25,7 @@ That is all. No other will rules will be changed.
 
 **If you want to set custom limits:**
 
-For custom options, go to **Tools -> Upload Max Filesize**. From that page, you can choose custom settings and run the plugin again.
+For custom options, go to **Tools --> Upload Max Filesize**. From that page, you can choose custom settings and run the plugin again.
 
 
 **Note:**
@@ -47,17 +47,15 @@ Contribute or fork it [on Github](https://github.com/isabelc/increase-upload-max
 
 == Installation ==
 
-1.  Download the plugin file, `increase-upload-max-filesize.zip`
+1. In your dashboard, go to **Plugins -> Add New** and search for "Increase Upload Max Filesize".
 
-2.  Go to **Plugins -> Add New -> Upload** to upload the plugin
+2. Install and click "Activate" to activate the plugin.
 
-3.  Click "Activate" to activate the plugin.
+3. Go to **Tools -> Upload Max Filesize** to see your current status. If the current status shows that your `'upload_max_filesize'` is 32M or greater, the plugin has worked.
 
-4.  Go to **Tools -> Upload Max Filesize** to see your current status. If the current status shows that your `'upload_max_filesize'` is 32M or greater, the plugin has worked. You may deactivate the plugin.
+4.  If the current status shows that your `'upload_max_filesize'` is **less than 32M**, first wait at least 30 minutes. Some servers are slower than others. If it still does not change after 30 minutes, it may be because your server does not recognize `php.ini`, and only recognizes `php5.ini`. So, please check the box labeled "USE php5.ini INSTEAD OF php.ini" and click the blue button once. Then, check your current status again after a few minutes.
 
-5.  If the current status shows that your `'upload_max_filesize'` is **less than 32M**, first wait at least 30 minutes. Some servers are slower than others. If it still does not change after 30 minutes, it may be because your server does not recognize `php.ini`, and only recognizes `php5.ini`. So, please check the box labeled "USE php5.ini INSTEAD OF php.ini" and click the blue button once. Then, check your current status again after a few minutes.
-
-6. If you want to set custom limits, go to **Tools -> Upload Max Filesize**. From that page, you can choose custom settings and run the plugin again.
+5. If you want to set custom limits, go to **Tools -> Upload Max Filesize**. From that page, you can choose custom settings and run the plugin again.
 
 == Frequently Asked Questions ==
 
@@ -76,6 +74,11 @@ If after 30 minutes your custom settings do not take effect, it may be that you 
 
 
 == Changelog ==
+
+= 1.2 =
+* New - Use php.ini by default rather than php5.ini.
+* Fix - Fixed poor alignment of status boxes on the Tools --> Upload Max Filesize page.
+* Fix - Update existing rules, if they exist, rather than adding a new line. If a rule does not exist, then add the new line.
 
 = 1.1 =
 * New - Changed the textdomain to match the plugin slug for compatibility with WordPress core language packs.

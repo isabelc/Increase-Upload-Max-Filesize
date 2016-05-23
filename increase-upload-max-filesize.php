@@ -3,7 +3,7 @@
 Plugin Name: Increase Upload Max Filesize
 Plugin URI: https://wordpress.org/plugins/increase-upload-max-filesize/
 Description: Increases your website's upload max filesize limit on your server by adding rules to php.ini or php5.ini.
-Version: 1.2-beta5
+Version: 1.2
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
