@@ -3,7 +3,7 @@
 Plugin Name: Increase Upload Max Filesize
 Plugin URI: https://wordpress.org/plugins/increase-upload-max-filesize/
 Description: Increases your website's upload max filesize limit on your server by adding rules to php.ini or php5.ini.
-Version: 1.2-beta1
+Version: 1.2-beta5
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License
 along with Increase Upload Max Filesize; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-if(!class_exists('Increase_Upload_Max_Filesize')) {
+if ( ! class_exists( 'Increase_Upload_Max_Filesize' ) ) {
 class Increase_Upload_Max_Filesize {
 
 	private static $instance = null;
@@ -123,8 +123,6 @@ class Increase_Upload_Max_Filesize {
 			'increase-upload-max-filesize'// page name. Must match the do_settings_sections function call. and match options menu page
 			
 		);	
-				
-
 		add_settings_field(
 			'inc_umf_setting_two', // unique id for the field
 			__( 'Set a custom upload_max_filesize', 'increase-upload-max-filesize' ),
@@ -132,19 +130,18 @@ class Increase_Upload_Max_Filesize {
 			'increase-upload-max-filesize',// page name that this is attached to (same as the do_settings_sections)
 			'iumf_options_main',	// the id of the settings section that this goes into (same as the first argument to add_settings_section).
 			array( 
-				'label' => 'textfield_one',
+				'label' => 'upload_max_limit',
 				'desc' => 'Optional. Enter the number of Megabytes to increase your upload_max_filesize to. Enter just the number without the "M".'
 			)
 		);
-
-	add_settings_field(
-			'inc_umf_setting_three', // unique id for the field
+		add_settings_field(
+			'inc_umf_setting_three',
 			__( 'Set a custom post_max_size', 'increase-upload-max-filesize' ),
 			array($this, 'iumf_textfield_callback'),
-			'increase-upload-max-filesize',// page name that this is attached to (same as the do_settings_sections)
-			'iumf_options_main',	// the id of the settings section that this goes into (same as the first argument to add_settings_section).
+			'increase-upload-max-filesize',
+			'iumf_options_main',
 			array( 
-				'label' => 'textfield_two',
+				'label' => 'post_max_limit',
 				'desc' => 'Optional. Enter the number of Megabytes to increase your post_max_size to. Enter just the number without the "M".'
 			)
 		);
@@ -153,8 +150,8 @@ class Increase_Upload_Max_Filesize {
 			'inc_umf_setting_one',
 			sprintf( __( 'USE %1$sphp5.ini%2$s INSTEAD OF %1$sphp.ini%2$s:', 'increase-upload-max-filesize' ), '<code>', '</code>' ),
 			array($this, 'iumf_settings_callback'),
-			'increase-upload-max-filesize',// page name that this is attached to (same as the do_settings_sections)
-			'iumf_options_main');	// the id of the settings section that this goes into (same as the first argument to add_settings_section).
+			'increase-upload-max-filesize',
+			'iumf_options_main');
 			
 	} // end page_init
 
@@ -165,14 +162,13 @@ class Increase_Upload_Max_Filesize {
 
 	public function iumf_settings_callback($args){
 
-		// name must start with the second argument passed to register_setting
 		$options = get_option( 'inc_upload_max_filesize_options' );
-		if(isset($options['checkbox_one'])) {
+		if(isset($options['use_php5'])) {
 			$checked = ' checked="checked" ';
 		}
-		$html = '<input type="checkbox" id="checkbox_one" name="inc_upload_max_filesize_options[checkbox_one]"'; 
+		$html = '<input type="checkbox" id="use_php5" name="inc_upload_max_filesize_options[use_php5]"'; 
 		if(isset($checked)) $html .= $checked;
-		$html .= '/><label for="checkbox_one">' . sprintf( __(' Check this to use %1$sphp5.ini%2$s instead of %1$sphp.ini%2$s. Then click the button once. Check your status after a few minutes to see if changes took place.%3$s', 'increase-upload-max-filesize' ),
+		$html .= '/><label for="inc_upload_max_filesize_options[use_php5]">' . sprintf( __(' Check this to use %1$sphp5.ini%2$s instead of %1$sphp.ini%2$s. Then click the button once. Check your status after a few minutes to see if changes took place.%3$s', 'increase-upload-max-filesize' ),
 			'<code>',
 			'</code>',
 			'</label>' );
@@ -187,11 +183,10 @@ class Increase_Upload_Max_Filesize {
 
 	public function iumf_textfield_callback($args) {
 
-		$options = get_option( 'inc_upload_max_filesize_options' );
 		$key = $args['label'];
 		$desc = $args['desc'];
 
-		?><input type="text" id="checkbox_one" name="inc_upload_max_filesize_options[<?php echo $key; ?>]" value="<?php echo $options["$key"]; ?>" />
+		?><input type="text" id="use_php5" name="inc_upload_max_filesize_options[<?php echo $key; ?>]" value="" />
 		<span class='description'><?php echo $desc; ?></span>
 <?php
 	}
@@ -235,15 +230,15 @@ class Increase_Upload_Max_Filesize {
 	* @param $new, array of newly-entered options, which have not been saved yet when running from Tools screen
 	* @since 1.0
 	*/
-	public function ini_rules( $options = null ) {
+	public static function ini_rules( $options = null ) {
 		$rule_1		= '';
 		$rule_2		= '';
 		$post_max 	= '';
 		$upload_max = '';
 		$msg 		= '';
 
-		$iscustom_uploadmaxfilesize = isset($options['textfield_one']) ? $options['textfield_one'] : '';
-		$iscustom_postmaxsize = isset($options['textfield_two']) ? $options['textfield_two'] : '';
+		$iscustom_uploadmaxfilesize = isset($options['upload_max_limit']) ? $options['upload_max_limit'] : '';
+		$iscustom_postmaxsize = isset($options['post_max_limit']) ? $options['post_max_limit'] : '';
 
 		// increase 'upload_max_filesize' if too low, or if a custom is entered
 		
@@ -300,7 +295,7 @@ class Increase_Upload_Max_Filesize {
 			// use php.ini or php5.ini?
 			$phpini = 'php.ini';
 
-			if ( isset( $options['checkbox_one'] ) && 'on' == $options['checkbox_one'] ) {
+			if ( isset( $options['use_php5'] ) && 'on' == $options['use_php5'] ) {
 				$phpini = 'php5.ini';
 			}
 

@@ -1,8 +1,8 @@
 ﻿=== Increase Upload Max Filesize ===
-Contributors: SmartestThemes, isabel104
+Contributors: isabel104
 Tags: php.ini, php5.ini, ini rules, upload max filesize, upload limit, increase filesize, upload_max_filesize, post max size, post_max_size
 Requires at least: 3.6
-Tested up to: 4.0
+Tested up to: 4.6
 Stable Tag: 1.1
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,9 +11,7 @@ This plugin is no longer supported.
 
 == Description ==
 
-**This plugin is no longer supported.**
-
-Increase your website's upload max filesize limit on your server by adding rules to `php5.ini`. If a `php5.ini` file does not exist on your server in the root of your website, one will be created. If your server uses `php.ini` instead, go to **Tools -> Upload Max Filesize** to run it with `php.ini`. You can also use this plugin to see your current php.ini settings status (go to **Tools -> Upload Max Filesize**).
+Increase your website's upload max filesize limit on your server by adding rules to `php.ini`. If a `php.ini` file does not exist on your server in the root of your website, one will be created. If your server uses `php5.ini` instead, go to **Tools -> Upload Max Filesize** to run it with `php5.ini`. You can also use this plugin to see your current php.ini settings status (go to **Tools -> Upload Max Filesize**).
 
 **Super Easy To Use**
 
@@ -37,11 +35,11 @@ Thus, if you later make any manual changes to decrease your `upload_max_filesize
 
 **Will This Work For You?**
 
-This plugin works. This means that it writes the rules to your php5.ini and/or to your php.ini. If the `.ini` file does not exist, it will create the file and then write the rules on it. This is all the plugin does. However, some web hosts IGNORE the settins on your php5.ini or php.ini. That is out of our control. 
+This plugin works. This means that it writes the rules to your php.ini and/or to your php5.ini. If the `.ini` file does not exist, it will create the file and then write the rules on it. This is all the plugin does. However, some web hosts IGNORE the settins on your php.ini or php5.ini. That is out of our control. 
 
 PLEASE NOTE: If you have a web host that ignores PHP ini rules set in these `.ini` files, that is no reason to give this plugin a bad rating. **You have the option of posting your problem (and the name of your web host) in the forum, and 9 times out of 10, I will help you solve your web-host-related problem.**
 
-This plugin will work with most web hosts that recognize either a `php5.ini` or `php.ini` file. It's not going to work with all hosting companies, but it will work with most of them (including BlueHost and GoDaddy).
+This plugin will work with most web hosts that recognize either a `php.ini` or `php5.ini` file. It's not going to work with all hosting companies, but it will work with most of them (including BlueHost and GoDaddy).
 
 See the [Installation Instructions](https://wordpress.org/plugins/increase-upload-max-filesize/installation/) and the FAQ.
 
@@ -57,7 +55,7 @@ Contribute or fork it [on Github](https://github.com/isabelc/increase-upload-max
 
 4.  Go to **Tools -> Upload Max Filesize** to see your current status. If the current status shows that your `'upload_max_filesize'` is 32M or greater, the plugin has worked. You may deactivate the plugin.
 
-5.  If the current status shows that your `'upload_max_filesize'` is **less than 32M**, first wait at least 30 minutes. Some servers are slower than others. If it still does not change after 30 minutes, it may be because your server does not recognize `php5.ini`, and only recognizes `php.ini`. So, please check the box labeled "USE php.ini INSTEAD OF php5.ini" and click the blue button once. Then, check your current status again after a few minutes.
+5.  If the current status shows that your `'upload_max_filesize'` is **less than 32M**, first wait at least 30 minutes. Some servers are slower than others. If it still does not change after 30 minutes, it may be because your server does not recognize `php.ini`, and only recognizes `php5.ini`. So, please check the box labeled "USE php5.ini INSTEAD OF php.ini" and click the blue button once. Then, check your current status again after a few minutes.
 
 6. If you want to set custom limits, go to **Tools -> Upload Max Filesize**. From that page, you can choose custom settings and run the plugin again.
 
@@ -65,11 +63,11 @@ Contribute or fork it [on Github](https://github.com/isabelc/increase-upload-max
 
 = Will this plugin work for me? =
 
-This plugin works. This means that it writes the rules to your php5.ini and/or to your php.ini. If the `.ini` file does not exist, it will create the file and then write the rules on it. This is all the plugin does. However, some web hosts IGNORE the settins on your php5.ini or php.ini. That is out of our control. 
+This plugin works. This means that it writes the rules to your php.ini and/or to your php5.ini. If the `.ini` file does not exist, it will create the file and then write the rules on it. This is all the plugin does. However, some web hosts IGNORE the settins on your php.ini or php5.ini. That is out of our control. 
 
 PLEASE NOTE: If you have a web host that ignores PHP ini rules set in these `.ini` files, that is no reason to give this plugin a bad rating. **You have the option of posting your problem (and the name of your web host) in the forum, and 9 times out of 10, I will help you solve your web-host-related problem.**
 
-This plugin will work with most web hosts that recognize either a `php5.ini` or `php.ini` file. It's not going to work with all hosting companies, but it will work with most of them (including BlueHost and GoDaddy).
+This plugin will work with most web hosts that recognize either a `php.ini` or `php5.ini` file. It's not going to work with all hosting companies, but it will work with most of them (including BlueHost and GoDaddy).
 
 
 = Why don't my custom limits take effect? = 
