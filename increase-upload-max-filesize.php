@@ -2,7 +2,7 @@
 /*
 Plugin Name: Increase Upload Max Filesize
 Plugin URI: https://wordpress.org/plugins/increase-upload-max-filesize/
-Description: Increases your website's upload max filesize limit on your server by adding rules to php5.ini or php.ini.
+Description: Increases your website's upload max filesize limit on your server by adding rules to php.ini or php5.ini.
 Version: 1.2-beta1
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
@@ -87,6 +87,27 @@ class Increase_Upload_Max_Filesize {
 		$c = ini_get('post_max_size');
 		$d = phpversion();
 
+
+		/************************************************************
+		*
+		* @todo @test begin
+		*
+		************************************************************/
+
+		// $testmax = wp_max_upload_size();
+
+
+		// $mbtest = $testmax/1024/1024;
+
+		// isa_log('test: wp_max_upload_size/1024/1024::');
+		// isa_log($mbtest);// @test now		
+
+
+		
+		// isa_log('test: ini_get(upload_max_filesize:');
+		// isa_log($a);// @test now
+
+
 		$status = sprintf( __( 'Your upload_max_filesize is %s.%s', 'increase-upload-max-filesize' ), $a, '<br />');
 		$status .= sprintf( __( 'Your post_max_size is %s.%s', 'increase-upload-max-filesize' ), $c, '<br /><br />');
 
@@ -95,7 +116,7 @@ class Increase_Upload_Max_Filesize {
 		} else {
 			$status .= sprintf(__( 'Please allow some time for your server to recognize any changes. You can refresh this page in a few minutes to see if any changes have been made. Please note that changes may have already been made, but you may have to clear your cache to see them here.%1$s You may deactivate the plugin once your %2$supload_max_filesize%3$s is at least 32M.%1$s', 'increase-upload-max-filesize' ), '<br /><br />', '<code>', '</code>' );
 
-		$after_status = sprintf(__( 'By default, this plugin uses %1$sphp5.ini%2$s. If your server uses %1$sphp.ini%2$s instead, please check the box below and click the blue button once.', 'increase-upload-max-filesize' ), '<code>', '</code>' );
+		$after_status = sprintf(__( 'By default, this plugin uses %1$sphp.ini%2$s. If your server uses %1$sphp5.ini%2$s instead, please check the box below and click the blue button once.', 'increase-upload-max-filesize' ), '<code>', '</code>' );
 		} ?>
 		<h3>Current Status:</h3>
 		<div class="stuffbox"><div class="misc-pub-section"><p><?php echo $status; ?></p></div></div><p><?php echo $after_status; ?></p>
@@ -151,7 +172,7 @@ class Increase_Upload_Max_Filesize {
 
 		add_settings_field(
 			'inc_umf_setting_one',
-			sprintf( __( 'USE %1$sphp.ini%2$s INSTEAD OF %1$sphp5.ini%2$s:', 'increase-upload-max-filesize' ), '<code>', '</code>' ),
+			sprintf( __( 'USE %1$sphp5.ini%2$s INSTEAD OF %1$sphp.ini%2$s:', 'increase-upload-max-filesize' ), '<code>', '</code>' ),
 			array($this, 'iumf_settings_callback'),
 			'increase-upload-max-filesize',// page name that this is attached to (same as the do_settings_sections)
 			'iumf_options_main');	// the id of the settings section that this goes into (same as the first argument to add_settings_section).
@@ -172,7 +193,7 @@ class Increase_Upload_Max_Filesize {
 		}
 		$html = '<input type="checkbox" id="checkbox_one" name="inc_upload_max_filesize_options[checkbox_one]"'; 
 		if(isset($checked)) $html .= $checked;
-		$html .= '/><label for="checkbox_one">' . sprintf( __(' Check this to use %1$sphp.ini%2$s instead of %1$sphp5.ini%2$s. Then click the button once. Check your status after a few minutes to see if changes took place.%3$s', 'increase-upload-max-filesize' ),
+		$html .= '/><label for="checkbox_one">' . sprintf( __(' Check this to use %1$sphp5.ini%2$s instead of %1$sphp.ini%2$s. Then click the button once. Check your status after a few minutes to see if changes took place.%3$s', 'increase-upload-max-filesize' ),
 			'<code>',
 			'</code>',
 			'</label>' );
@@ -276,7 +297,6 @@ class Increase_Upload_Max_Filesize {
 			$msg .= sprintf( __( 'Your post_max_size was already %s.%s', 'increase-upload-max-filesize' ), $x, '<br />');
 		}
 
-		
 		// update message option
 		update_option( 'increase_upload_filesize_msg', $msg );
 
@@ -285,14 +305,14 @@ class Increase_Upload_Max_Filesize {
 			
 		} else {
 
-			// get url of site root.
-			$root = $_SERVER["DOCUMENT_ROOT"];
+			// use php.ini or php5.ini?
+			$phpini = 'php.ini';
 
-			// use php.ini or php5.ini ?
+			if ( isset( $options['checkbox_one'] ) && 'on' == $options['checkbox_one'] ) {
+				$phpini = 'php5.ini';
+			}
 
-			$ischecked = isset($options['checkbox_one']) ? $options['checkbox_one'] : '';
-			if( 'on' == $ischecked ) $filename = $root . '/php.ini';
-			else $filename = $root . '/php5.ini';
+			$filename = $_SERVER["DOCUMENT_ROOT"] . '/' . $phpini;
 
 			if ( file_exists( $filename ) ) {
 			
@@ -301,7 +321,7 @@ class Increase_Upload_Max_Filesize {
 				// and the LOCK_EX flag to prevent anyone else writing to the file at the same time
 				$editini = file_put_contents( $filename, $rules, FILE_APPEND | LOCK_EX );
 					
-				if (	false === $editini ) {
+				if ( false === $editini ) {
 		
 					// file_put_contents did not work so try fwrite()
 							
@@ -337,7 +357,7 @@ class Increase_Upload_Max_Filesize {
 							
 			    if (fwrite($handlec , $rules) === FALSE) {
 							       
-			         $error_msg = sprintf( __( 'Cannot write to newly created file (%s), so no changes will be made. Please deactivate the plugin, and try again. If it still does not work after trying again, then ask your web host to grant you access to write to your php5.ini file.', 'increase-upload-max-filesize' ), $filename );
+			         $error_msg = sprintf( __( 'Cannot write to newly created file (%s), so no changes will be made. Please deactivate the plugin, and try again. If it still does not work after trying again, then ask your web host to grant you access to write to your php.ini file.', 'increase-upload-max-filesize' ), $filename );
 						
 			    }
 			    fclose($handlec);
