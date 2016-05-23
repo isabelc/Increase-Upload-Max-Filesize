@@ -75,7 +75,7 @@ class Increase_Upload_Max_Filesize {
 	public function create_admin_page(){ ?>
 		<div class="wrap">
 		<?php screen_icon(); ?>
-		<h2><?php _e( 'Increase Upload Max Filesize', 'increase-upload-max-filesize'); ?></h2>
+		<h1><?php _e( 'Increase Upload Max Filesize', 'increase-upload-max-filesize'); ?></h1>
 
 		<?php $before_plugin = get_option( 'increase_upload_filesize_msg' );
 			$before_plugin_error = get_option( 'increase_upload_filesize_msg_err' ); ?>
