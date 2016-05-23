@@ -87,27 +87,6 @@ class Increase_Upload_Max_Filesize {
 		$c = ini_get('post_max_size');
 		$d = phpversion();
 
-
-		/************************************************************
-		*
-		* @todo @test begin
-		*
-		************************************************************/
-
-		// $testmax = wp_max_upload_size();
-
-
-		// $mbtest = $testmax/1024/1024;
-
-		// isa_log('test: wp_max_upload_size/1024/1024::');
-		// isa_log($mbtest);// @test now		
-
-
-		
-		// isa_log('test: ini_get(upload_max_filesize:');
-		// isa_log($a);// @test now
-
-
 		$status = sprintf( __( 'Your upload_max_filesize is %s.%s', 'increase-upload-max-filesize' ), $a, '<br />');
 		$status .= sprintf( __( 'Your post_max_size is %s.%s', 'increase-upload-max-filesize' ), $c, '<br /><br />');
 
@@ -257,8 +236,11 @@ class Increase_Upload_Max_Filesize {
 	* @since 1.0
 	*/
 	public function ini_rules( $options = null ) {
-		$rules = '';
-		$msg = '';
+		$rule_1		= '';
+		$rule_2		= '';
+		$post_max 	= '';
+		$upload_max = '';
+		$msg 		= '';
 
 		$iscustom_uploadmaxfilesize = isset($options['textfield_one']) ? $options['textfield_one'] : '';
 		$iscustom_postmaxsize = isset($options['textfield_two']) ? $options['textfield_two'] : '';
@@ -270,11 +252,15 @@ class Increase_Upload_Max_Filesize {
 		$f = intval($e);
 		
 		if ( $iscustom_uploadmaxfilesize ) {
-			$rules .= "upload_max_filesize = " . $iscustom_uploadmaxfilesize . "M\n";
+			$rule_1 = "upload_max_filesize = " . $iscustom_uploadmaxfilesize . "M\n";
+			$upload_max = $iscustom_uploadmaxfilesize . "M\n";
+
 			$msg .= sprintf( __( 'Your upload_max_filesize was %s.%s', 'increase-upload-max-filesize' ), $d, '<br />');
 		
 		} elseif ( $f < 32 ) {
-			$rules .= "upload_max_filesize = 32M\n";
+			$rule_1 = "upload_max_filesize = 32M\n";
+			$upload_max = "32M\n";
+
 			$msg .= sprintf( __( 'Your upload_max_filesize was %s.%s', 'increase-upload-max-filesize' ), $d, '<br />');
 		} else {
 			$msg .= sprintf( __( 'Your upload_max_filesize was already %s.%s', 'increase-upload-max-filesize' ), $d, '<br />');
@@ -288,14 +274,20 @@ class Increase_Upload_Max_Filesize {
 		
 		if ( $iscustom_postmaxsize ) {
 					
-			$rules .= "post_max_size = " . $iscustom_postmaxsize . "M\n";
+			$rule_2 = "post_max_size = " . $iscustom_postmaxsize . "M\n";
+			$post_max = $iscustom_postmaxsize . "M\n";
+
 			$msg .= sprintf( __( 'Your post_max_size was %s.%s', 'increase-upload-max-filesize' ), $x, '<br />');
 		} elseif ( $z < 33 ) {
-			$rules .= "post_max_size = 33M\n";
+			$rule_2 = "post_max_size = 33M\n";
+			$post_max = "33M\n";
+
 			$msg .= sprintf( __( 'Your post_max_size was %s.%s', 'increase-upload-max-filesize' ), $x, '<br />');
 		} else {
 			$msg .= sprintf( __( 'Your post_max_size was already %s.%s', 'increase-upload-max-filesize' ), $x, '<br />');
 		}
+
+		$rules = $rule_1 . $rule_2;
 
 		// update message option
 		update_option( 'increase_upload_filesize_msg', $msg );
@@ -316,38 +308,50 @@ class Increase_Upload_Max_Filesize {
 
 			if ( file_exists( $filename ) ) {
 			
-				// append the .ini file
-				// using the FILE_APPEND flag to append the content to the end of the file
-				// and the LOCK_EX flag to prevent anyone else writing to the file at the same time
-				$editini = file_put_contents( $filename, $rules, FILE_APPEND | LOCK_EX );
-					
-				if ( false === $editini ) {
-		
-					// file_put_contents did not work so try fwrite()
-							
-					if (is_writable($filename)) {
-					
-					    // open in append mode with file pointer at the bottom of the file
-					    if (!$handle = fopen($filename, 'a')) {
-					         $error_msg = sprintf( __( 'Cannot open file (%s), so no changes will be made. Please deactivate the plugin and try again. If it still does not work after trying again, then this plugin may not be for you.', 'increase-upload-max-filesize' ), $filename );
-					    }
-						
-					    // Write $rules to our opened file.
-					    if (fwrite($handle, $rules) === FALSE) {
-					         $error_msg = sprintf( __( 'Cannot write to file (%s), so no changes will be made. Please deactivate the plugin, and try again. If it still does not work after trying again, then ask your web host to grant you access to write to your <code>%s</code> file.', 'increase-upload-max-filesize' ), $filename );
-						
-						}
-					
-					    fclose($handle);
-						
+				$file_contents = file_get_contents( $filename );
+
+				if ( $file_contents ) {
+
+					// If an upload_max_filesize rule exists in the file, replace the limit
+					if ( preg_match( '~upload_max_filesize\s*=\s*.*~', $file_contents ) ) {
+
+						$updated_contents = preg_replace( '~(upload_max_filesize\s*=\s*)(.*)~', "\${1}$upload_max", $file_contents );
+
+						$added_rule_1 = file_put_contents( $filename, $updated_contents, LOCK_EX );
+
 					} else {
-					    $error_msg = "The file $filename is not writable.";
-					} // end	if (is_writable($filename)
-						
-				} // end if (	false === $editini ) 
-	
-	
-			} else { 
+
+						// The rule is not found, so add it.
+						$added_rule_1 = file_put_contents( $filename, $rule_1, FILE_APPEND | LOCK_EX );
+
+					}
+
+					if ( $added_rule_1 ) {
+
+						// If a post_max_size rule exists in the file, replace the limit
+
+						$file_contents = file_get_contents( $filename );
+
+						if ( preg_match( '/post_max_size\s*=\s*(.*)/', $file_contents ) ) {
+
+							$updated_contents = preg_replace( '~(post_max_size\s*=\s*)(.*)~', "\${1}$post_max", $file_contents );
+
+							$added_rule_2 = file_put_contents( $filename, $updated_contents, LOCK_EX );
+						} else {
+
+							// The rule is not found, so add it. 
+							$added_rule_2 = file_put_contents( $filename, $rule_2, FILE_APPEND | LOCK_EX );
+
+						}
+					}
+				} else {
+
+					// file exists, but is empty.
+					$added_rule_2 = file_put_contents( $filename, $rules, LOCK_EX );
+
+				}
+
+			} else {
 			
 				// file does not exist so create it
 		
@@ -366,10 +370,11 @@ class Increase_Upload_Max_Filesize {
 
 		} // end if ( phpversion() < 5 )
 
-		if ( !empty($error_msg) )
+		if ( !empty($error_msg) ) {
 			update_option( 'increase_upload_filesize_msg_err', $error_msg );
+		}
 
-	} // end ini_rules
+	} // end ini_rules()
 
 } // end class
 }
