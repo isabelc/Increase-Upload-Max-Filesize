@@ -126,7 +126,7 @@ msgstr ""
 
 #. Plugin URI of the plugin/theme
 msgid ""
-"http://smartestthemes.com/downloads/increase-upload-max-filesize-wp-plugin/"
+"https://wordpress.org/plugins/increase-upload-max-filesize/"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -136,9 +136,9 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Smartest Themes"
+msgid "Isabel Castillo"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://smartestthemes.com"
+msgid "http://isabelcastillo.com"
 msgstr ""

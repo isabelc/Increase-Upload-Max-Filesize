@@ -43,7 +43,7 @@ PLEASE NOTE: If you have a web host that ignores PHP ini rules set in these `.in
 
 This plugin will work with most web hosts that recognize either a `php5.ini` or `php.ini` file. It's not going to work with all hosting companies, but it will work with most of them (including BlueHost and GoDaddy).
 
-See the [Installation Instructions](http://wordpress.org/plugins/increase-upload-max-filesize/installation/) and the FAQ.
+See the [Installation Instructions](https://wordpress.org/plugins/increase-upload-max-filesize/installation/) and the FAQ.
 
 Contribute or fork it [on Github](https://github.com/isabelc/increase-upload-max-filesize).
 
