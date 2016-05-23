@@ -81,7 +81,7 @@ class Increase_Upload_Max_Filesize {
 			$before_plugin_error = get_option( 'increase_upload_filesize_msg_err' ); ?>
 
 		<h3>Your Settings Before Running The Plugin:</h3>
-		<div class="updated"><p><?php echo $before_plugin; ?></p><p><?php echo $before_plugin_error; ?></p></div>
+		<div class="stuffbox"><div class="misc-pub-section"><p><?php echo $before_plugin; ?></p><p><?php echo $before_plugin_error; ?></p></div></div>
 
 		<?php $a = ini_get('upload_max_filesize');
 		$c = ini_get('post_max_size');
@@ -98,7 +98,7 @@ class Increase_Upload_Max_Filesize {
 		$after_status = sprintf(__( 'By default, this plugin uses %1$sphp5.ini%2$s. If your server uses %1$sphp.ini%2$s instead, please check the box below and click the blue button once.', 'increase-upload-max-filesize' ), '<code>', '</code>' );
 		} ?>
 		<h3>Current Status:</h3>
-		<div class="updated"><p><?php echo $status; ?></p></div><p><?php echo $after_status; ?></p>
+		<div class="stuffbox"><div class="misc-pub-section"><p><?php echo $status; ?></p></div></div><p><?php echo $after_status; ?></p>
 		<form method="post" action="options.php">
 	        <?php settings_fields( 'inc_upload_max_filesize_options' );	// @param 1 must be same as register settings'
 				do_settings_sections( 'increase-upload-max-filesize' );// page slug must match 4th param of add_settings_section 
