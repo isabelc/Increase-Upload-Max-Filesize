@@ -7,7 +7,7 @@ Stable tag: 1.2
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin is no longer supported.
+Increases your upload max filesize limit on your server by adding rules to php.ini or php5.ini
 
 == Description ==
 
